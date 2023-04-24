@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-@st.cache(suppress_st_warning=True)
+@st.cache_data(allow_output_mutation=True)
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
     st.write("Original Dataframe:")

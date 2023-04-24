@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
     st.write("Original Dataframe:")
@@ -24,8 +24,6 @@ def process_data(file):
                 break
         df = df.drop(['action', 'actionDetails'], axis=1)
         df = df.reset_index(drop=True)
-        st.write("Processed Dataframe:")
-        st.write(df)
         return df
     except Exception as e:
         st.write(f"Error: {e}")
@@ -39,6 +37,8 @@ def main():
 
     if uploaded_file is not None:
         df = process_data(uploaded_file)
+        st.write("Processed Dataframe:")
+        st.write(df)
         if df is not None:
             st.table(df)
 

@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-from pandas import ExcelFile
-import openpyxl
 
 @st.cache
 def process_data(file):
@@ -26,4 +24,14 @@ def process_data(file):
     return df
 
 def main():
-    st.set_page_config(page_title='User Journey Streamlit
+    st.set_page_config(page_title='User Journey Streamlit App', layout='wide')
+    st.title('User Journey Streamlit App')
+
+    uploaded_file = st.file_uploader('Choose an Excel file', type=['xlsx', 'xls'])
+
+    if uploaded_file is not None:
+        df = process_data(uploaded_file)
+        st.table(df)
+
+if __name__ == '__main__':
+    main()

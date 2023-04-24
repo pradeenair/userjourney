@@ -1,4 +1,15 @@
 import streamlit as st
+st.set_option('deprecation.showfileUploaderEncoding', False)
+st.set_option('deprecation.showPyplotGlobalUse', False)
+st.set_option('deprecation.showPyplotGlobalUse', False)
+st.set_page_config(layout="wide")
+st.beta_set_page_config(page_title="User Journey Analysis")
+st.title("User Journey Analysis")
+
+# add this line to install openpyxl
+st.set_option('deprecation.showfileUploaderEncoding', False)
+!pip install openpyxl
+import streamlit as st
 import pandas as pd
 
 # Define a function to process the input data and generate the final output

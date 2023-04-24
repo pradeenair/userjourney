@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-@st.experimental_memo(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
     st.write("Original Dataframe:")
@@ -44,4 +44,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

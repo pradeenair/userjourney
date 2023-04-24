@@ -4,12 +4,11 @@ import streamlit as st
 @st.cache
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
-    df = df.drop_duplicates(subset='url', keep='first')
+    df = df.dropna(subset=['url'])
     df = df[df['actionDetails'].notna()]
     df['serverTimePretty'] = pd.to_datetime(df['serverTime'], unit='ms').dt.date.astype(str)
     df['url'] = df['url'].str.wrap(50)
     df = df[['serverTimePretty', 'url', 'email', 'referrerTypeName', 'referrerName', 'referrerKeyword']]
-    df = df.dropna(how='all')
     df.insert(1, '', '')
     df.insert(4, '', '')
     df.insert(7, '', '')
@@ -21,6 +20,7 @@ def process_data(file):
             break
     df = df.drop(['action', 'actionDetails'], axis=1)
     df = df.reset_index(drop=True)
+    df = df.drop_duplicates(subset='url', keep='first')
     return df
 
 def main():

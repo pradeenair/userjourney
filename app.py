@@ -7,7 +7,7 @@ def process_data(file):
     df = df.drop_duplicates(subset='urlEncoded', keep='first')
     df = df[df['actionDetails'].notna()]
     df['serverTimePretty'] = pd.to_datetime(df['serverTime'], unit='ms').dt.date.astype(str)
-    df['urlEncoded'] = df['urlEncoded'].str.wrap(50)
+    df['urlEncoded'] = df['url'].str.wrap(50)
     df = df[['serverTimePretty', 'urlEncoded', 'email', 'referrerTypeName', 'referrerName', 'referrerKeyword']]
     df = df.dropna(how='all')
     df.insert(1, '', '')
@@ -20,6 +20,7 @@ def process_data(file):
             df.loc[df['action'] == action, 'eventAction'] = action
             break
     df = df.drop(['action', 'actionDetails'], axis=1)
+    df = df.rename(columns={'serverTimePretty': 'Server Time', 'urlEncoded': 'URL', 'email': 'Email', 'referrerTypeName': 'Referrer Type', 'referrerName': 'Referrer', 'referrerKeyword': 'Referrer Keyword', '': ' ', 'eventAction': 'Event Action'})
     df = df.reset_index(drop=True)
     return df
 

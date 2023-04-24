@@ -4,11 +4,11 @@ import streamlit as st
 @st.cache
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
-    df = df.drop_duplicates(subset='url', keep='first')
+    df = df.drop_duplicates(subset='urlEncoded', keep='first')
     df = df[df['actionDetails'].notna()]
     df['serverTimePretty'] = pd.to_datetime(df['serverTime'], unit='ms').dt.date.astype(str)
-    df['url'] = df['url'].str.wrap(50)
-    df = df[['serverTimePretty', 'url', 'email', 'referrerTypeName', 'referrerName', 'referrerKeyword']]
+    df['urlEncoded'] = df['urlEncoded'].str.wrap(50)
+    df = df[['serverTimePretty', 'urlEncoded', 'email', 'referrerTypeName', 'referrerName', 'referrerKeyword']]
     df = df.dropna(how='all')
     df.insert(1, '', '')
     df.insert(4, '', '')

@@ -40,8 +40,7 @@ def main():
     uploaded_file = st.cache_resource(st.file_uploader('Choose an Excel file', type=['xlsx', 'xls']))
 
     if uploaded_file is not None:
-        # Convert the uploaded_file object to bytes before passing to process_data()
-        df = process_data(uploaded_file.read())
+        df = process_data(uploaded_file)
         if df is not None:
             st.table(df)
 

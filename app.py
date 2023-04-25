@@ -1,5 +1,3 @@
-Sure, I can help you with that. Here is the updated app code with the new caching commands:
-
 ```python
 import pandas as pd
 import streamlit as st

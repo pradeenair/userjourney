@@ -1,7 +1,11 @@
+Sure, I can help you with that. Here is the updated app code with the new caching commands:
+
+```python
 import pandas as pd
 import streamlit as st
 
-@st.cache(allow_output_mutation=True)
+# Use st.cache_data to cache the processed dataframe
+@st.cache_data
 def process_data(file):
     df = pd.read_excel(file, engine='openpyxl')
     st.write("Original Dataframe:")
@@ -35,7 +39,8 @@ def main():
     st.set_page_config(page_title='User Journey Streamlit App', layout='wide')
     st.title('User Journey Streamlit App')
 
-    uploaded_file = st.file_uploader('Choose an Excel file', type=['xlsx', 'xls'])
+    # Use st.cache_resource to cache the uploaded file
+    uploaded_file = st.cache_resource(st.file_uploader('Choose an Excel file', type=['xlsx', 'xls']))
 
     if uploaded_file is not None:
         df = process_data(uploaded_file)
@@ -44,3 +49,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+```
